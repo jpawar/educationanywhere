@@ -1,0 +1,7 @@
+C:\Users\pawarj\EducationAnywhere\CommonTypes\bin\Debug\EducationAnywhere.CommonTypes.dll
+C:\Users\pawarj\EducationAnywhere\CommonTypes\bin\Debug\EducationAnywhere.CommonTypes.pdb
+C:\Users\pawarj\EducationAnywhere\CommonTypes\bin\Debug\EducationAnywhere.Models.dll
+C:\Users\pawarj\EducationAnywhere\CommonTypes\bin\Debug\EducationAnywhere.Models.pdb
+C:\Users\pawarj\EducationAnywhere\CommonTypes\obj\Debug\CommonTypes.csprojResolveAssemblyReference.cache
+C:\Users\pawarj\EducationAnywhere\CommonTypes\obj\Debug\EducationAnywhere.CommonTypes.dll
+C:\Users\pawarj\EducationAnywhere\CommonTypes\obj\Debug\EducationAnywhere.CommonTypes.pdb

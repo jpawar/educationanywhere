@@ -1,0 +1,5 @@
+C:\Users\pawarj\EducationAnywhere\Models\bin\Debug\EducationAnywhere.Models.dll
+C:\Users\pawarj\EducationAnywhere\Models\bin\Debug\EducationAnywhere.Models.pdb
+C:\Users\pawarj\EducationAnywhere\Models\obj\Debug\EducationAnywhere.Models.dll
+C:\Users\pawarj\EducationAnywhere\Models\obj\Debug\EducationAnywhere.Models.pdb
+C:\Users\pawarj\EducationAnywhere\Models\obj\Debug\Models.csprojResolveAssemblyReference.cache

@@ -1,0 +1,11 @@
+C:\Users\pawarj\EducationAnywhere\DataAccess\bin\Debug\DataAccess.dll
+C:\Users\pawarj\EducationAnywhere\DataAccess\bin\Debug\DataAccess.pdb
+C:\Users\pawarj\EducationAnywhere\DataAccess\bin\Debug\EducationAnywhere.Models.dll
+C:\Users\pawarj\EducationAnywhere\DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\pawarj\EducationAnywhere\DataAccess\bin\Debug\EducationAnywhere.Models.pdb
+C:\Users\pawarj\EducationAnywhere\DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\pawarj\EducationAnywhere\DataAccess\obj\Debug\DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\pawarj\EducationAnywhere\DataAccess\obj\Debug\DataAccess.dll
+C:\Users\pawarj\EducationAnywhere\DataAccess\obj\Debug\DataAccess.pdb
+C:\Users\pawarj\EducationAnywhere\DataAccess\bin\Debug\EducationAnywhere.CommonTypes.dll
+C:\Users\pawarj\EducationAnywhere\DataAccess\bin\Debug\EducationAnywhere.CommonTypes.pdb

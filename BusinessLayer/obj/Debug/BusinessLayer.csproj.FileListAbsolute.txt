@@ -1,0 +1,13 @@
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\obj\Debug\BusinessLayer.csprojResolveAssemblyReference.cache
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EducationAnywhere.BusinessLayer.dll
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EducationAnywhere.BusinessLayer.pdb
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\DataAccess.dll
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EducationAnywhere.CommonTypes.dll
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EducationAnywhere.Models.dll
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EntityFramework.dll
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EducationAnywhere.CommonTypes.pdb
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\DataAccess.pdb
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EducationAnywhere.Models.pdb
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EntityFramework.xml
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\obj\Debug\EducationAnywhere.BusinessLayer.dll
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\obj\Debug\EducationAnywhere.BusinessLayer.pdb
