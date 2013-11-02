@@ -180,6 +180,7 @@
     <Content Include="Scripts\angular\angular.min.js" />
     <Content Include="Scripts\angular\app\app.js" />
     <Content Include="Scripts\angular\controller\RegistrationCtrl.js" />
+    <Content Include="Scripts\angular\controller\SignInCtrl.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
@@ -500,6 +501,7 @@
     <Content Include="Views\Course\Create.cshtml" />
     <Content Include="Views\Course\Edit.cshtml" />
     <Content Include="Views\Course\Delete.cshtml" />
+    <Content Include="Views\Registration\SignIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -18,14 +18,14 @@
                 <a class="navbar-brand" href="~/Home/Index">Education Anywhere</a>
             </div>
             <div class="navbar-collapse collapse">                
-                <form class="navbar-form navbar-left">
+                <form class="navbar-form navbar-left" ng-controller="SignInCtrl" ng-submit="signOnUser()">
                     <div class="form-group">
-                        <input type="text" placeholder="Email" class="form-control">
+                        <input type="text" placeholder="Email" class="form-control" ng-model="emailAddress">
                     </div>
                     <div class="form-group">
-                        <input type="password" placeholder="Password" class="form-control">
+                        <input type="password" placeholder="Password" class="form-control" ng-model="password">
                     </div>
-                    <button type="submit" class="btn btn-success">Sign in</button>
+                    <button type="submit" class="btn btn-success">Sign in</button>                    
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="~/Registration/Register">Create Account</a></li>

@@ -31,6 +31,14 @@ namespace EducationAnywhere.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
+        public ActionResult SignIn([FromBody] User userData)
+        {
+            return View();
+
+            //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Bad Request");            
+        }
+
+        [System.Web.Mvc.HttpPost]
         public ActionResult Register([FromBody] User userData)
         {
             _userRegistrationFacade.RegisterUser(userData);
