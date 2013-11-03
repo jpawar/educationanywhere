@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Mvc;
 using Models;
 using DataAccess;
@@ -16,7 +17,13 @@ namespace EducationAnywhere.Controllers
         public ActionResult Index()
         {
             var user = Session["UserData"] as User;
-            var course = db.Course.Where(c => c.User.Id == user.Id).ToList();
+
+            if (user == null)
+            {
+                throw new HttpRequestException("You are not logged in");
+            }
+
+            var course = db.Course.ToList();
             return View(course);
         }
 
