@@ -1,9 +1,12 @@
 ﻿using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 using EducationAnywhere.BusinessLayer;
 using EducationAnywhere.CommonTypes.Interface;
 using Models;
+
+using Newtonsoft.Json;
 
 namespace EducationAnywhere.Controllers
 {
@@ -31,20 +34,21 @@ namespace EducationAnywhere.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult SignIn([FromBody] User userData)
+        public string SignIn([FromBody] User userData)
         {
-            return View();
+            var loggedUser = _userRegistrationFacade.SignIn(userData);
+            Session["UserData"] = loggedUser;
+            var json = JsonConvert.SerializeObject(loggedUser);
 
-            //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Bad Request");            
+            return json;
         }
 
         [System.Web.Mvc.HttpPost]
         public ActionResult Register([FromBody] User userData)
         {
-            _userRegistrationFacade.RegisterUser(userData);
+            var registeredUser = _userRegistrationFacade.RegisterUser(userData);
+            Session["UserData"] = registeredUser;
             return View();
-
-            //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Bad Request");            
         }
 
     }

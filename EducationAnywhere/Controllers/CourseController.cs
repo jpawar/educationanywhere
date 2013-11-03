@@ -11,11 +11,13 @@ namespace EducationAnywhere.Controllers
         private EducationAnywhereContext db = new EducationAnywhereContext();
 
         //
-        // GET: /Course/
+        // GET: /Course
 
         public ActionResult Index()
         {
-            return View(db.Course.ToList());
+            var user = Session["UserData"] as User;
+            var course = db.Course.Where(c => c.User.Id == user.Id).ToList();
+            return View(course);
         }
 
         //

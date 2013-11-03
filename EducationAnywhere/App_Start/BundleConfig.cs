@@ -15,22 +15,16 @@ namespace EducationAnywhere
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include("~/Scripts/bootstrap/bootstrap.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
+                    "~/Scripts/angular/angular.min.js",
                     "~/Scripts/angular/angular-bootstrap.min.js",
-                    "~/Scripts/angular/angular-bootstrap-prettify.js",
                     "~/Scripts/angular/angular-bootstrap-prettify.min.js",
-                    "~/Scripts/angular/angular-bootstrap.js",
                     "~/Scripts/angular/angular-bootstrap.min.js",
-                    "~/Scripts/angular/angular-cookies.js",
-                    "~/Scripts/angular/angular-cookies.min.js",
-                    "~/Scripts/angular/angular-loader.js",
+                    "~/Scripts/angular/angular-cookies.min.js",                    
                     "~/Scripts/angular/angular-loader.min.js",
                     "~/Scripts/angular/angular-mocks.js",
-                    "~/Scripts/angular/angular-resource.js",
                     "~/Scripts/angular/angular-resource.min.js",
-                    "~/Scripts/angular/angular-sanitize.js",
                     "~/Scripts/angular/angular-sanitize.min.js",
-                    "~/Scripts/angular/angular-scenario.js",
-                    "~/Scripts/angular/angular.min.js"
+                    "~/Scripts/angular/angular-scenario.js"                    
                     ));
 
             #region ANGULAR CTRL

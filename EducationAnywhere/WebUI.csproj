@@ -179,6 +179,7 @@
     <Content Include="Scripts\angular\angular-scenario.js" />
     <Content Include="Scripts\angular\angular.min.js" />
     <Content Include="Scripts\angular\app\app.js" />
+    <Content Include="Scripts\angular\controller\CourseCtrl.js" />
     <Content Include="Scripts\angular\controller\RegistrationCtrl.js" />
     <Content Include="Scripts\angular\controller\SignInCtrl.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />

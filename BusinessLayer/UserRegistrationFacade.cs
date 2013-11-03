@@ -1,4 +1,7 @@
-﻿using DataAccess;
+﻿using System.Net;
+using System.Security.Authentication;
+
+using DataAccess;
 
 using EducationAnywhere.CommonTypes.Interface;
 
@@ -24,6 +27,18 @@ namespace EducationAnywhere.BusinessLayer
         public User RegisterUser(User user)
         {
             return _dataAccess.RegisterUser(user);
+        }
+
+        public User SignIn(User userData)
+        {
+            User user = _dataAccess.SignIn(userData);
+
+            if (user == null)
+            {
+                throw new InvalidCredentialException("Incorrect Credentials");
+            }
+            
+            return user;
         }
     }
 
