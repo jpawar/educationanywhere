@@ -26,6 +26,8 @@ namespace DataAccess
 
         public DbSet<Course> Course { get; set; }
 
+        public DbSet<CourseGrade> CourseGrade { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {            
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

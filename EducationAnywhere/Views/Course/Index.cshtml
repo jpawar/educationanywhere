@@ -6,15 +6,47 @@
 
 <div class="container">
 
-    <div>
+    <div ng-controller="CourseCtrl">
         <h2>Manage Course</h2>
 
         <div class="nav navbar-right">
-            <p class="{{isRoleTeacher}}">@Html.ActionLink("Create New", "Create")</p>
+            <a data-toggle="modal" href="#createNewCourseModal" class="btn btn-primary {{isRoleTeacher}}">Create Course</a>            
         </div>
 
+        <div class="modal" id="createNewCourseModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4>Add Course</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="controls" style="margin-bottom: 15px;">
+                                <input type="text" placeholder="Course Name" class="form-control" ng-model="course.name">
+                            </div>
 
-        <div class="tabbable" ng-controller="CourseCtrl">
+                            <div class="controls">
+                                <select name="grade" ng-model="course.grade">
+                                    <option value=""></option>
+                                    <option value="0">K</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn" data-dismiss="modal">Close</a>
+                        <button type="button" class="btn btn-primary" ng-click="createCourse()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabbable">
             <!-- Only required for left/right tabs -->
             <ul class="nav nav-pills">
                 <li class="active"><a href="#tab1" data-toggle="tab">Topic</a></li>
@@ -51,7 +83,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     @*<div>

@@ -1,6 +1,8 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
 using System.Net.Http;
+using System.Web.Http;
 using System.Web.Mvc;
 using Models;
 using DataAccess;
@@ -15,7 +17,7 @@ namespace EducationAnywhere.Controllers
         // GET: /Course
 
         public ActionResult Index()
-        {
+        { 
             var user = Session["UserData"] as User;
 
             if (user == null)
@@ -51,18 +53,57 @@ namespace EducationAnywhere.Controllers
         //
         // POST: /Course/Create
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Course course)
+        [System.Web.Mvc.HttpPost]        
+        public ActionResult Create([FromBody] Course course)
         {
             if (ModelState.IsValid)
             {
-                db.Course.Add(course);
-                db.SaveChanges();
+                var courseExists = (from c in db.Course.Where(c => c.Subject == course.Subject) select c).ToList();
+
+                //this is new course
+                if (courseExists.Count == 0)
+                {
+                    this.AddCourse(course);
+                    this.AddCourseGrade(new CourseGrade { CourseId = course.Id, Grade = course.Grade });
+                    return RedirectToAction("Index");
+                }
+                var existingCourseId = courseExists[0].Id;
+
+                try
+                {
+                    var courseGradeExists =
+                        (from cg in
+                             db.CourseGrade.Where(cg => cg.CourseId == existingCourseId && cg.Grade == course.Grade)
+                         select cg).ToList();
+
+                    //this is new grade for existing course
+                    if (courseGradeExists.Count == 0)
+                    {
+                        var courseGrade = new CourseGrade { CourseId = existingCourseId, Grade = course.Grade };
+                        this.AddCourseGrade(courseGrade);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
                 return RedirectToAction("Index");
             }
 
             return View(course);
+        }
+
+        private void AddCourseGrade(CourseGrade courseGrade)
+        {
+            this.db.CourseGrade.Add(courseGrade);
+            this.db.SaveChanges();
+        }
+
+        private void AddCourse(Course course)
+        {
+            this.db.Course.Add(course);
+            this.db.SaveChanges();
         }
 
         //
@@ -81,7 +122,7 @@ namespace EducationAnywhere.Controllers
         //
         // POST: /Course/Edit/5
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Course course)
         {
@@ -110,7 +151,7 @@ namespace EducationAnywhere.Controllers
         //
         // POST: /Course/Delete/5
 
-        [HttpPost, ActionName("Delete")]
+        [System.Web.Mvc.HttpPost, System.Web.Mvc.ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

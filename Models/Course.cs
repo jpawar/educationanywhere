@@ -6,5 +6,9 @@ namespace Models
     {
         public int Id { get; set; }
         public string Subject { get; set; }
+
+        [NotMapped]
+        public string Grade { get; set; }
+
     }
 }

@@ -1,4 +1,3 @@
-C:\Users\pawarj\EducationAnywhere\BusinessLayer\obj\Debug\BusinessLayer.csprojResolveAssemblyReference.cache
 C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EducationAnywhere.BusinessLayer.dll
 C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EducationAnywhere.BusinessLayer.pdb
 C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\DataAccess.dll
@@ -9,5 +8,6 @@ C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EducationAnywhere.Comm
 C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\DataAccess.pdb
 C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EducationAnywhere.Models.pdb
 C:\Users\pawarj\EducationAnywhere\BusinessLayer\bin\Debug\EntityFramework.xml
+C:\Users\pawarj\EducationAnywhere\BusinessLayer\obj\Debug\BusinessLayer.csprojResolveAssemblyReference.cache
 C:\Users\pawarj\EducationAnywhere\BusinessLayer\obj\Debug\EducationAnywhere.BusinessLayer.dll
 C:\Users\pawarj\EducationAnywhere\BusinessLayer\obj\Debug\EducationAnywhere.BusinessLayer.pdb
