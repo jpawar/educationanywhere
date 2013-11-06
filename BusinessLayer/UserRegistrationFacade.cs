@@ -13,7 +13,6 @@ namespace EducationAnywhere.BusinessLayer
     {
         private readonly IEducationAnywhereDataAccess _dataAccess;
 
-
         public UserRegistrationFacade()
         {
             _dataAccess = new EducationAnywhereDataAccess();

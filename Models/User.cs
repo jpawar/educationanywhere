@@ -12,7 +12,7 @@ namespace Models
 
         public string Grade { get; set; }
 
-        public string Role { get; set; }
+        public Enums.Role Role { get; set; }
 
     }
 }

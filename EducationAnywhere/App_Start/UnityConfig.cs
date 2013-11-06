@@ -41,6 +41,7 @@ namespace EducationAnywhere.App_Start
 
 
             container.RegisterType<IUserRegistrationFacade, UserRegistrationFacade>(new InjectionConstructor());
+            container.RegisterType<ICourseFacade, CourseFacade>(new InjectionConstructor());
         }
     }
 }

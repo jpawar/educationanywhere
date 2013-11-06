@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 using Models;
 
 namespace DataAccess
@@ -7,5 +10,9 @@ namespace DataAccess
         User RegisterUser(User user);
 
         User SignIn(User userData);
+
+        List<Course> GetAllCoursesByRole(User user);
+
+        void CreateCourse(Course course);
     }
 }

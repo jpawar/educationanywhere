@@ -1,17 +1,27 @@
-﻿using System;
-using System.Data;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
+
+using EducationAnywhere.BusinessLayer;
+using EducationAnywhere.CommonTypes.Interface;
+
 using Models;
-using DataAccess;
 
 namespace EducationAnywhere.Controllers
 {
     public class CourseController : Controller
     {
-        private EducationAnywhereContext db = new EducationAnywhereContext();
+        private ICourseFacade _courseFacade;
+
+        public CourseController()
+        {
+            _courseFacade = new CourseFacade();
+        }
+
+        public CourseController(ICourseFacade courseFacade)
+        {
+            _courseFacade = courseFacade;
+        }
 
         //
         // GET: /Course
@@ -25,13 +35,15 @@ namespace EducationAnywhere.Controllers
                 throw new HttpRequestException("You are not logged in");
             }
 
-            var course = db.Course.ToList();
+            var course = _courseFacade.GetAllCoursesByRole(user);
+
             return View(course);
         }
 
         //
         // GET: /Course/Details/5
-
+        
+        /*
         public ActionResult Details(int id = 0)
         {
             Course course = db.Course.Find(id);
@@ -41,6 +53,7 @@ namespace EducationAnywhere.Controllers
             }
             return View(course);
         }
+        */
 
         //
         // GET: /Course/Create
@@ -58,57 +71,18 @@ namespace EducationAnywhere.Controllers
         {
             if (ModelState.IsValid)
             {
-                var courseExists = (from c in db.Course.Where(c => c.Subject == course.Subject) select c).ToList();
-
-                //this is new course
-                if (courseExists.Count == 0)
-                {
-                    this.AddCourse(course);
-                    this.AddCourseGrade(new CourseGrade { CourseId = course.Id, Grade = course.Grade });
-                    return RedirectToAction("Index");
-                }
-                var existingCourseId = courseExists[0].Id;
-
-                try
-                {
-                    var courseGradeExists =
-                        (from cg in
-                             db.CourseGrade.Where(cg => cg.CourseId == existingCourseId && cg.Grade == course.Grade)
-                         select cg).ToList();
-
-                    //this is new grade for existing course
-                    if (courseGradeExists.Count == 0)
-                    {
-                        var courseGrade = new CourseGrade { CourseId = existingCourseId, Grade = course.Grade };
-                        this.AddCourseGrade(courseGrade);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-
+                _courseFacade.CreateCourse(course);
                 return RedirectToAction("Index");
             }
 
             return View(course);
         }
 
-        private void AddCourseGrade(CourseGrade courseGrade)
-        {
-            this.db.CourseGrade.Add(courseGrade);
-            this.db.SaveChanges();
-        }
-
-        private void AddCourse(Course course)
-        {
-            this.db.Course.Add(course);
-            this.db.SaveChanges();
-        }
+        
 
         //
         // GET: /Course/Edit/5
-
+        /*
         public ActionResult Edit(int id = 0)
         {
             Course course = db.Course.Find(id);
@@ -160,11 +134,7 @@ namespace EducationAnywhere.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        */
+        
     }
 }
