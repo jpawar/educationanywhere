@@ -51,5 +51,12 @@ namespace EducationAnywhere.Controllers
             return View();
         }
 
+        [System.Web.Mvc.HttpDelete]
+        public ActionResult SignIn()
+        {            
+            Session.Remove("UserData");
+            return View();
+        } 
+
     }
 }

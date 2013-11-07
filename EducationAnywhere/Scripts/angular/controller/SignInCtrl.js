@@ -1,14 +1,16 @@
-﻿myApp.controller('SignInCtrl', function SignInCtrl($scope, $http, $cookieStore, $cookies) {
+﻿myApp.controller('SignInCtrl', function SignInCtrl($scope, $http) {
 
     var url = "/Registration/SignIn";
     $scope.userNameVisible = 'hide';
+
+    $.cookie.raw = true;
     
-    var userId = $cookieStore.get('userId');
+    var userId = $.cookie('userId123');
     
-    if (userId != null) {
-        hideSignOn(userId, $cookieStore.get('userName'));
+    if (userId !== undefined && userId !== null) {   
+        var userName = $.cookie('userName');
+        hideSignOn(userId.toString(), userName);                
     }
-    
     
     $scope.signOnUser = function () {
         
@@ -28,27 +30,23 @@
 
 
     $scope.signOutUser = function () {
-        delete $cookies['userId'];
-        delete $cookies['userName'];
-        window.location.href = '/';
-        /*$cookieStore.put('userId', null);
-        $cookieStore.put('userName', null);*/
-        //restoreSignOn(); 
+        $http.delete(url, "").success(logoutSuccess);        
     };
 
-    function hideSignOn(userId, userName) {
-        $scope.userNameVisible = '';
-        $scope.visibility = 'hide';
-        $scope.userName = 'Hello ' + userName;
-        $cookieStore.put('userId', userId);
-        $cookieStore.put('userName', userName);
+    function logoutSuccess(data, status, headers, config) {
+        $.removeCookie('userId123', { path: '/' });
+        $.removeCookie('userName', { path: '/' });
+        window.location.href = '/';
     }
 
-    /*function restoreSignOn() {
-        $scope.userNameVisible = 'hide';
-        $scope.visibility = '';
-        $scope.userName = '';        
-    }*/
+    function hideSignOn(loggedUserId, loggedUserName) {
+        $scope.userNameVisible = '';
+        $scope.visibility = 'hide';
+        $scope.userName = 'Hello ' + loggedUserName;
+        
+        $.cookie('userId123', loggedUserId, { expires: 7, path: '/' });
+        $.cookie('userName', loggedUserName, { expires: 7, path: '/' });
+    }
 
 
     function loginSuccess(data, status, headers, config) {
