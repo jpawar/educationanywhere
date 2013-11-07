@@ -72,7 +72,7 @@ namespace EducationAnywhere.Controllers
             if (ModelState.IsValid)
             {
                 _courseFacade.CreateCourse(course);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index"); //ToDo this is not needed since javascript is handling that refactor later
             }
 
             return View(course);

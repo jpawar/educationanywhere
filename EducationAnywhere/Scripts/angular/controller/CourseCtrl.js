@@ -2,6 +2,14 @@
 
     var url = "/Course/Create";
 
+    var customer = JSON.parse($.cookie("customer"));
+
+    $scope.isRoleTeacher = 'hide';
+    
+    if (customer.Role === "1") {
+        $scope.isRoleTeacher = '';
+    }
+    
     $scope.createCourse = function() {
 
         var courseInfo = $.param({

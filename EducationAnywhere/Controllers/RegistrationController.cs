@@ -44,18 +44,21 @@ namespace EducationAnywhere.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult Register([FromBody] User userData)
+        public string Register([FromBody] User userData)
         {
             var registeredUser = _userRegistrationFacade.RegisterUser(userData);
             Session["UserData"] = registeredUser;
-            return View();
+            var json = JsonConvert.SerializeObject(registeredUser);
+
+            return json;
+            
         }
 
         [System.Web.Mvc.HttpDelete]
-        public ActionResult SignIn()
+        public string SignOut()
         {            
             Session.Remove("UserData");
-            return View();
+            return "";
         } 
 
     }

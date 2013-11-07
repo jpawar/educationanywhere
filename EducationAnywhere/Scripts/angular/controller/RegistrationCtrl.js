@@ -23,9 +23,11 @@
 
     };
 
-    function redirectToCourse() {
-        //alert("Success");
-        //$location.path('/Course/Index');
+    function redirectToCourse(data, status, headers, config) {        
+        //$.cookie('userId', data.Id, { expires: 7, path: '/' });
+        //$.cookie('userName', data.Name, { expires: 7, path: '/' });
+        data.Password = '';
+        $.cookie('customer', JSON.stringify(data), { expires: 7, path: '/' });
         window.location.href = '/Course/Index';
     }
 

@@ -1,15 +1,17 @@
 ﻿myApp.controller('SignInCtrl', function SignInCtrl($scope, $http) {
 
-    var url = "/Registration/SignIn";
+    var url = "/Registration";
     $scope.userNameVisible = 'hide';
 
     $.cookie.raw = true;
     
-    var userId = $.cookie('userId123');
+    //var userId = $.cookie('userId');
+    var customer = $.cookie("customer");
     
-    if (userId !== undefined && userId !== null) {   
-        var userName = $.cookie('userName');
-        hideSignOn(userId.toString(), userName);                
+    //if (userId !== undefined && userId !== null) {   
+    if (customer !== undefined && customer !== null) {   
+        //var userName = $.cookie('userName');
+        hideSignOn(JSON.parse(customer));
     }
     
     $scope.signOnUser = function () {
@@ -19,6 +21,8 @@
             Password: this.password
         });
 
+        url = url + "/SignIn";
+        
         $http({
             method: 'POST',
             url: url,
@@ -30,27 +34,32 @@
 
 
     $scope.signOutUser = function () {
+        url = url + "/SignOut";
         $http.delete(url, "").success(logoutSuccess);        
     };
 
     function logoutSuccess(data, status, headers, config) {
-        $.removeCookie('userId123', { path: '/' });
-        $.removeCookie('userName', { path: '/' });
+        //$.removeCookie('userId', { path: '/' });
+        //$.removeCookie('userName', { path: '/' });
+        $.removeCookie('customer', { path: '/' });
         window.location.href = '/';
     }
 
-    function hideSignOn(loggedUserId, loggedUserName) {
+    function hideSignOn(userData) {
+        
         $scope.userNameVisible = '';
         $scope.visibility = 'hide';
-        $scope.userName = 'Hello ' + loggedUserName;
+        $scope.userName = 'Hello ' + userData.Name;
         
-        $.cookie('userId123', loggedUserId, { expires: 7, path: '/' });
-        $.cookie('userName', loggedUserName, { expires: 7, path: '/' });
+        //$.cookie('userId', userData.Id, { expires: 7, path: '/' });
+        //$.cookie('userName', userData.Name, { expires: 7, path: '/' });
+        userData.Password = '';
+        $.cookie('customer', JSON.stringify(userData), { expires: 7, path: '/' });
     }
 
 
     function loginSuccess(data, status, headers, config) {
-        hideSignOn(data.Id, data.Name);
+        hideSignOn(data);
         window.location.href = '/Course/Index';
     }
 

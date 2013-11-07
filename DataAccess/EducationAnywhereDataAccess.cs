@@ -28,7 +28,16 @@ namespace DataAccess
             if (!exists)
             {
                 var newUser = _dataContext.Users.Add(user);
-                _dataContext.SaveChanges();
+                try
+                {
+                    _dataContext.SaveChanges();
+
+                }
+                catch (Exception e)
+                {
+                    
+                    
+                }
 
                 return newUser;
             }
@@ -70,11 +79,13 @@ namespace DataAccess
         {
             var course = new List<Course>();
 
-            if (user.Role == Enums.Role.Teacher)
+            var role = (Enums.Role)(Int32.Parse(user.Role));
+            ;
+            if (role == Enums.Role.Teacher)
             {
                 course = _dataContext.Course.ToList();
             }
-            else if (user.Role == Enums.Role.Student)
+            else if (role == Enums.Role.Student)
             {
                 var courseGrade = (from cg in _dataContext.CourseGrade.Where(cg => cg.Grade == user.Grade) select cg).ToList();
                 var courseIds = (from c in courseGrade select c.CourseId).Distinct().ToList();
