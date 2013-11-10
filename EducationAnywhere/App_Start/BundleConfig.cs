@@ -10,7 +10,7 @@ namespace EducationAnywhere
         {
             bundles.IgnoreList.Clear();
 
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery/jquery-{version}.js", "~/Scripts/jquery/jquery.cookie.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery/jquery-1.8.2.min.js", "~/Scripts/jquery/jquery.cookie.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include("~/Scripts/bootstrap/bootstrap.min.js"));
 

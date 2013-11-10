@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 using DataAccess;
 
 using EducationAnywhere.CommonTypes.Interface;
@@ -10,16 +9,16 @@ using Models;
 
 namespace EducationAnywhere.BusinessLayer
 {
-    public class CourseFacade : ICourseFacade, IDisposable
+    public class TutorialFacade : ITutorialFacade, IDisposable
     {
         private readonly IEducationAnywhereDataAccess _dataAccess;
 
-        public CourseFacade()
+        public TutorialFacade()
         {
             _dataAccess = new EducationAnywhereDataAccess();
         }
 
-        public CourseFacade(IEducationAnywhereDataAccess dataAccess)
+        public TutorialFacade(IEducationAnywhereDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
@@ -29,11 +28,11 @@ namespace EducationAnywhere.BusinessLayer
             return _dataAccess.GetAllCoursesByRole(user);
         }
 
-        public void CreateCourse(Course course)
-        {
-            _dataAccess.CreateCourse(course);
-        }
 
+        public void UploadTutorial(Tutorial tutorial)
+        {
+
+        }
 
         public void Dispose()
         {
@@ -52,7 +51,6 @@ namespace EducationAnywhere.BusinessLayer
                     dataAccess.Dispose();
                 }
             }
-        }
-        
+        }        
     }
 }

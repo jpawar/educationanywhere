@@ -33,6 +33,8 @@ namespace DataAccess
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
         }
+
+        public DbSet<Tutorial> Tutorials { get; set; }
     }
 }
 

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Models.Tutorial>
+
+@{
+    ViewBag.Title = "Upload Tutorial";
+}
+
+<div class="container">
+    <div class="span4" ng-controller="TutorialCtrl" ng-init="getCourses()">
+        <form class="form-horizontal" ng-controller="TutorialCtrl" ng-submit="uploadTutorial()">
+
+            <div class="controls-row form-group">
+                <label for="grade" class="control-label form-group">
+                    Select Course
+                </label>
+                <div class="controls-row form-group">
+                    <select name="course" ng-model="tutorial.course" ng-options="c.Id as c.Subject for c in CourseList"></select>
+                </div>                
+            </div>
+            <div class="controls-row form-group">
+                <label for="grade" class="control-label form-group">
+                    Select Grade
+                </label>
+                <div class="controls-row form-group">
+                    <select name="grade" ng-model="tutorial.grade">
+                        <option value=""></option>
+                        <option value="0">K</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-actions form-group">
+                <button type="submit" class="btn btn-lg btn-primary form-group">Upload</button>
+            </div>
+            
+        </form>
+    </div>
+    <!-- .span8 -->
+
+</div>
+
+
+

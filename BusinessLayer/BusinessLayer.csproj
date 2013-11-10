@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TutorialFacade.cs" />
     <Compile Include="CourseFacade.cs" />
     <Compile Include="UserRegistrationFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

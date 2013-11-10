@@ -1,7 +1,6 @@
 ﻿myApp.controller('CourseCtrl', function($scope, $http) {
 
-    var url = "/Course/Create";
-
+    var url = "/Course/Create";    
     var customer = JSON.parse($.cookie("customer"));
 
     $scope.isRoleTeacher = 'hide';
@@ -9,6 +8,10 @@
     if (customer.Role === "1") {
         $scope.isRoleTeacher = '';
     }
+
+    $scope.uploadTutorial = function() {
+        window.location.href = '/Tutorial/Index';
+    };
     
     $scope.createCourse = function() {
 
@@ -33,4 +36,5 @@
         }
 
     };
+    
 });

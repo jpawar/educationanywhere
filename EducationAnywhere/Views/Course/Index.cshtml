@@ -4,21 +4,28 @@
     ViewBag.Title = "Course";
 }
 
+<!-- http://stackoverflow.com/questions/11167628/trees-in-twitter-bootstrap -->
+
 <div class="container">
 
     <div ng-controller="CourseCtrl">
         <h2>Browse Course</h2>
 
         <div class="nav navbar-right">
-            <a data-toggle="modal" href="#createNewCourseModal" class="btn btn-primary {{isRoleTeacher}}">Create Course</a>            
+            <a data-toggle="modal" href="#createNewCourseModal" class="btn btn-primary {{isRoleTeacher}}">Create Course</a>
+            @*<a data-toggle="modal" href="#uploadTutorialModal" class="btn btn-warning {{isRoleTeacher}}">Upload Tutorial</a>*@
+            <button ng-click="uploadTutorial()" class="btn btn-warning {{isRoleTeacher}}">Upload Tutorial</button>
         </div>
+
+
+        <!-- Create Course Modal -->
 
         <div class="modal" id="createNewCourseModal">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="background-color: gainsboro">
                         <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4>Add Course</h4>
+                        <h3>Add Course</h3>
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal">
@@ -39,27 +46,66 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn" data-dismiss="modal">Close</a>
-                        <button type="button" class="btn btn-primary" ng-click="createCourse()">Submit</button>
+                        <a href="#" class="btn btn-warning" data-dismiss="modal">Close</a>
+                        <button type="button" class="btn btn-primary" ng-click="createCourse()">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Tutorial Modal -->
+        <div class="modal" id="uploadTutorialModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: gainsboro">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h2>Upload Tutorial Video</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="controls" style="margin-bottom: 15px;">
+                                <select name="course" ng-model="tutorial.course" ng-options="c.Id as c.Subject for c in Course"></select>
+                            </div>
+                            <div class="controls" style="margin-bottom: 15px;">
+                                <input type="text" placeholder="Tutorial Description" class="form-control" ng-model="tutorial.description">
+                            </div>
+
+                            <div class="controls">
+                                <select name="grade" ng-model="tutorial.grade">
+                                    <option value=""></option>
+                                    <option value="0">K</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" ng-click="uploadTutorial()">Upload</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="tabbable">
+
             <!-- Only required for left/right tabs -->
-            <ul class="nav nav-pills">
+            @*<ul class="nav nav-pills">
                 <li class="active"><a href="#tab1" data-toggle="tab">Topic</a></li>
                 <li><a href="#tab2" data-toggle="tab">Grade</a></li>
-            </ul>
+            </ul>*@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab1">
-                    <table class="table table-hover">
+
+
+                    <table class="table">
                         <tr>
                             <th>
                                 @Html.DisplayNameFor(model => model.Subject)
                             </th>
-                            <th>Action</th>
                         </tr>
 
                         @foreach (var item in Model)
@@ -68,22 +114,22 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Subject)
                                 </td>
-                                <td class="{{isRoleTeacher}}">
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                                </td>
                             </tr>
                         }
 
                     </table>
+
                 </div>
-                <div class="tab-pane" id="tab2">
+                @*<div class="tab-pane" id="tab2">
                     <p>Howdy, I'm in Section 2.</p>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
+
+
+
+
 
     @*<div>
         <h2>Manage Course</h2>

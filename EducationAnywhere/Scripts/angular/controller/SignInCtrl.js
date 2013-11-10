@@ -5,12 +5,9 @@
 
     $.cookie.raw = true;
     
-    //var userId = $.cookie('userId');
     var customer = $.cookie("customer");
     
-    //if (userId !== undefined && userId !== null) {   
     if (customer !== undefined && customer !== null) {   
-        //var userName = $.cookie('userName');
         hideSignOn(JSON.parse(customer));
     }
     
@@ -32,15 +29,12 @@
 
     };
 
-
     $scope.signOutUser = function () {
         url = url + "/SignOut";
         $http.delete(url, "").success(logoutSuccess);        
     };
 
-    function logoutSuccess(data, status, headers, config) {
-        //$.removeCookie('userId', { path: '/' });
-        //$.removeCookie('userName', { path: '/' });
+    function logoutSuccess(data, status, headers, config) {    
         $.removeCookie('customer', { path: '/' });
         window.location.href = '/';
     }
@@ -51,8 +45,6 @@
         $scope.visibility = 'hide';
         $scope.userName = 'Hello ' + userData.Name;
         
-        //$.cookie('userId', userData.Id, { expires: 7, path: '/' });
-        //$.cookie('userName', userData.Name, { expires: 7, path: '/' });
         userData.Password = '';
         $.cookie('customer', JSON.stringify(userData), { expires: 7, path: '/' });
     }
@@ -64,8 +56,6 @@
     }
 
     function loginFailed(data, status, headers, config) {        
-        //$scope.showError = '';
-        //$scope.registrationErrorMessage = "Failed to logon";
         $scope.password = '';
     }
 });

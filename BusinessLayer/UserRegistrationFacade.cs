@@ -18,7 +18,7 @@ namespace EducationAnywhere.BusinessLayer
             _dataAccess = new EducationAnywhereDataAccess();
         }
 
-        public UserRegistrationFacade(IEducationAnywhereDataAccess dataAccess )
+        public UserRegistrationFacade(IEducationAnywhereDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }

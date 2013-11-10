@@ -1,10 +1,9 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
-
 using EducationAnywhere.BusinessLayer;
 using EducationAnywhere.CommonTypes.Interface;
-
 using Models;
 
 namespace EducationAnywhere.Controllers
@@ -39,6 +38,8 @@ namespace EducationAnywhere.Controllers
 
             return View(course);
         }
+
+        
 
         //
         // GET: /Course/Details/5
@@ -81,9 +82,10 @@ namespace EducationAnywhere.Controllers
         
 
         //
-        // GET: /Course/Edit/5
+        // GET: /Course/Upload/5
         /*
-        public ActionResult Edit(int id = 0)
+        
+        public ActionResult Upload(int id = 0)
         {
             Course course = db.Course.Find(id);
             if (course == null)
