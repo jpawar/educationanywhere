@@ -1,6 +1,6 @@
-﻿myApp.controller('CourseCtrl', function($scope, $http) {
+﻿myApp.controller('CourseCtrl', function ($scope, $http) {
 
-    var url = "/Course/Create";    
+    var url = "/Course";    
     var customer = JSON.parse($.cookie("customer"));
 
     $scope.isRoleTeacher = 'hide';
@@ -12,6 +12,16 @@
     $scope.uploadTutorial = function() {
         window.location.href = '/Tutorial/Index';
     };
+
+
+    $scope.getAllCourses = function () {
+
+        $http.get('/Course/Details').then(fetchCourseSuccess);
+               
+        function fetchCourseSuccess(data, status, headers, config) {
+            $scope.CourseDescriptionList = data.data;
+        }
+    };
     
     $scope.createCourse = function() {
 
@@ -22,7 +32,7 @@
 
         $http({
             method: 'POST',
-            url: url,
+            url: url + '/Create',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             data: courseInfo
         }).success(courseSuccess).error(courseFailed);

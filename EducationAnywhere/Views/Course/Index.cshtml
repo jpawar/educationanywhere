@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Models.Course>
+﻿@*@model IEnumerable<Models.Course>*@
 
 @{
     ViewBag.Title = "Course";
@@ -7,8 +7,7 @@
 <!-- http://stackoverflow.com/questions/11167628/trees-in-twitter-bootstrap -->
 
 <div class="container">
-
-    <div ng-controller="CourseCtrl">
+    <div ng-controller="CourseCtrl" ng-init="getAllCourses()">
         <h2>Browse Course</h2>
 
         <div class="nav navbar-right">
@@ -16,7 +15,6 @@
             @*<a data-toggle="modal" href="#uploadTutorialModal" class="btn btn-warning {{isRoleTeacher}}">Upload Tutorial</a>*@
             <button ng-click="uploadTutorial()" class="btn btn-warning {{isRoleTeacher}}">Upload Tutorial</button>
         </div>
-
 
         <!-- Create Course Modal -->
 
@@ -72,8 +70,7 @@
 
                             <div class="controls">
                                 <select name="grade" ng-model="tutorial.grade">
-                                    <option value=""></option>
-                                    <option value="0">K</option>
+                                    <option selected="selected" value="0">K</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -100,25 +97,17 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab1">
 
-
                     <table class="table">
                         <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Subject)
-                            </th>
+                            <th>Subject</th>
+                            <th class="{{isRoleTeacher}}">Grade</th>
                         </tr>
-
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Subject)
-                                </td>
-                            </tr>
-                        }
-
+                        
+                        <tr ng-repeat="courseDetail in CourseDescriptionList">                            
+                            <td>{{courseDetail.Subject}}</td>
+                            <td class="{{isRoleTeacher}}">{{courseDetail.Grade}}</td>
+                        </tr>
                     </table>
-
                 </div>
                 @*<div class="tab-pane" id="tab2">
                     <p>Howdy, I'm in Section 2.</p>

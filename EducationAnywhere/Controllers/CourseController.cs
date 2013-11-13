@@ -6,6 +6,8 @@ using EducationAnywhere.BusinessLayer;
 using EducationAnywhere.CommonTypes.Interface;
 using Models;
 
+using Newtonsoft.Json;
+
 namespace EducationAnywhere.Controllers
 {
     public class CourseController : Controller
@@ -26,7 +28,12 @@ namespace EducationAnywhere.Controllers
         // GET: /Course
 
         public ActionResult Index()
-        { 
+        {            
+            return View();
+        }
+
+        private List<Course> GetAllCourses()
+        {
             var user = Session["UserData"] as User;
 
             if (user == null)
@@ -35,26 +42,21 @@ namespace EducationAnywhere.Controllers
             }
 
             var course = _courseFacade.GetAllCoursesByRole(user);
-
-            return View(course);
+            return course;
         }
-
-        
 
         //
-        // GET: /Course/Details/5
+        // GET: /Course/Details
         
-        /*
-        public ActionResult Details(int id = 0)
+        [System.Web.Mvc.HttpGet]
+        public string Details()
         {
-            Course course = db.Course.Find(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
-            return View(course);
+            var courses = GetAllCourses();
+            var json = JsonConvert.SerializeObject(courses);
+            return json;
+            
         }
-        */
+        
 
         //
         // GET: /Course/Create
