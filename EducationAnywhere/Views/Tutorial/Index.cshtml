@@ -6,14 +6,30 @@
 
 <div class="container">
     <div class="span4" ng-controller="TutorialCtrl" ng-init="getCourses()">
-        <form class="form-horizontal" ng-controller="TutorialCtrl" ng-submit="uploadTutorial()">
-
+        <form class="form-horizontal">
+            
+            <div class="controls-row form-group">
+                <label for="videofile" class="control-label form-group">
+                    Select video file to upload
+                </label>
+                @*<input type="text" ng-model="myModelObj">*@
+                <input name ="videofile" style="margin-left: -17px" type="file" ng-file-select="onFileSelect($files)">
+            </div>
+            <div class="controls-row form-group">
+                <label for="Description" class="control-label form-group">
+                    Tutorial Description
+                </label>
+                <div class="controls-row form-group">
+                    @*<input class="form-control" name="Description" placeholder="John Doe" type="text" ng-model="description">*@
+                    <textarea class="form-control" name="Description" style="resize:none" ng-model="description" cols="num" rows="num"></textarea>
+                </div>
+            </div>
             <div class="controls-row form-group">
                 <label for="course" class="control-label form-group">
                     Select Course
                 </label>
                 <div class="controls-row form-group">
-                    <select name="course" ng-model="upload.course" ng-options="c.Id as c.Subject for c in CourseList"></select>
+                    <select name="course" ng-model="selectedcourse" ng-options="c.Id as c.Subject for c in CourseList"></select>
                 </div>
             </div>
             <div class="controls-row form-group">
@@ -21,8 +37,8 @@
                     Select Grade
                 </label>
                 <div class="controls-row form-group">
-                    <select name="grade" ng-model="upload.grade">
-                        <option selected value="0">K</option>
+                    <select name="grade" ng-model="selectedgrade">
+                        <option value="0">K</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -30,24 +46,61 @@
                     </select>
                 </div>
             </div>
-            <div class="controls-row form-group">
+            @*<div class="controls-row form-group">
                 <label for="SelectVideoFile" class="control-label form-group">
                     Select Video file
                 </label>
                 <div class="controls-row form-group">
-                    @*<input class="form-control" type="file" fileread="upload.videoFilePath" />
-                    <input class="form-control" type="text" ng-model="upload.videoFilePath" />*@
-                    <input type="file" ng-model-instant id="fileToUpload" />
+                    <input class="form-control" type="file" fileread="upload.videoFilePath" />
+                    <input class="form-control" type="text" ng-model="upload.videoFilePath" />
+                    <input type="file" id="fileToUpload" />
                 </div>
-            </div>
+            </div>*@
+           
             <div class="form-actions form-group">
-                <button type="submit" class="btn btn-lg btn-primary form-group">Upload</button>
+                <button type="submit" class="btn btn-lg btn-primary form-group" ng-click="uploadTutorial()">Submit</button>
             </div>
-
         </form>
     </div>
-
+    @*<div ng-controller="FileUploadCtrl">
+        <input type="text" ng-model="myModelObj">
+        <input type="file" ng-file-select="onFileSelect($files)">
+        <input type="file" ng-file-select="onFileSelect($files)" multiple>
+        <div ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class"
+            ng-show="dropSupported">
+            drop files here1
+        </div>
+        <div ng-file-drop-available="dropSupported=true"
+            ng-show="!dropSupported">
+            HTML5 Drop File is not supported!
+        </div>
+        <button ng-click="upload.abort()">Cancel Upload</button>
+    </div>*@
+    @*<div ng-controller="FileUploadCtrl">
+        <div class="control-group">
+            <div class="controls">
+                <span class="btn btn-success fileinput-button">
+                    <i class="icon-plus icon-white"></i>
+                    <input type="file" name="file" data-url="Tutorial/Upload"
+                        multiple upload><span>Add files...</span>
+                </span>
+            </div>
+        </div>
+        <div>
+            <span ng-show="!files.length">No files selected</span>
+            <ul>
+                <li ng-repeat="file in files">{{file}}</li>
+            </ul>
+        </div>
+        <div class="form-actions form-group">
+            <button type="submit" class="btn btn-lg btn-primary form-group" ng-click="upload()">Upload</button>
+        </div>
+        <div class="progress" ng-show="percentage">
+            <div class="bar" style="width: {{percentage}}%;"></div>
+        </div>
+    </div>*@
 </div>
+
 
 
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -62,7 +64,23 @@ namespace EducationAnywhere.Controllers
             return View();
         }
 
-        
+        //http://css.dzone.com/articles/angularjs-file-upload
+
+        [HttpPost]
+        public ContentResult Upload(HttpPostedFileBase file)
+        {
+            var filename = Path.GetFileName(file.FileName);
+            var path = Path.Combine(Server.MapPath("~/uploads"), filename);
+            file.SaveAs(path);
+
+            return new ContentResult
+            {
+                ContentType = "text/plain",
+                Content = filename,
+                ContentEncoding = Encoding.UTF8
+            };
+        }
+
         // GET: /Tutorial/CourseGrade/{courseId}
 
         public List<Tutorial> GetCourseGrade(int courseGradeId)

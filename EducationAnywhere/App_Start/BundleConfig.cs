@@ -24,7 +24,9 @@ namespace EducationAnywhere
                     "~/Scripts/angular/angular-mocks.js",
                     "~/Scripts/angular/angular-resource.min.js",
                     "~/Scripts/angular/angular-sanitize.min.js",
-                    "~/Scripts/angular/angular-scenario.js"                    
+                    "~/Scripts/angular/angular-scenario.js",
+                    "~/Scripts/angular/angular-file-upload.min.js"
+                    
                     ));
 
             #region ANGULAR CTRL
