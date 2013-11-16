@@ -8,6 +8,6 @@ namespace EducationAnywhere.CommonTypes.Interface
     {
         List<Course> GetAllCoursesByRole(User user);
 
-        void UploadTutorial(Tutorial tutorial);
+        void SaveTutorial(Tutorial tutorial);
     }
 }

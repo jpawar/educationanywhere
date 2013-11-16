@@ -99,25 +99,25 @@ namespace DataAccess
 
         private void AddCourseGrade(CourseGrade courseGrade)
         {
-            this._dataContext.CourseGrade.Add(courseGrade);
-            this._dataContext.SaveChanges();
+            _dataContext.CourseGrade.Add(courseGrade);
+            _dataContext.SaveChanges();
         }
 
         private void AddCourse(Course course)
         {
-            this._dataContext.Course.Add(course);
-            this._dataContext.SaveChanges();
+            _dataContext.Course.Add(course);
+            _dataContext.SaveChanges();
         }
 
         public void CreateCourse(Course course)
         {
             var courseExists = (from c in _dataContext.Course.Where(c => c.Subject == course.Subject) select c).ToList();
 
-            //this is new course
+            //is new course
             if (courseExists.Count == 0)
             {
-                this.AddCourse(course);
-                this.AddCourseGrade(new CourseGrade { CourseId = course.Id, Grade = course.Grade });
+                AddCourse(course);
+                AddCourseGrade(new CourseGrade { CourseId = course.Id, Grade = course.Grade });
                 return;
             }
             var existingCourseId = courseExists[0].Id;
@@ -129,17 +129,49 @@ namespace DataAccess
                          _dataContext.CourseGrade.Where(cg => cg.CourseId == existingCourseId && cg.Grade == course.Grade)
                      select cg).ToList();
 
-                //this is new grade for existing course
+                //is new grade for existing course
                 if (courseGradeExists.Count == 0)
                 {
                     var courseGrade = new CourseGrade { CourseId = existingCourseId, Grade = course.Grade };
-                    this.AddCourseGrade(courseGrade);
+                    AddCourseGrade(courseGrade);
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        public void SaveTutorial(Tutorial tutorial)
+        {
+            int courseGradeId  = FindCourseId(tutorial.Subject, tutorial.Grade);
+
+            if (courseGradeId > 0)
+            {
+                tutorial.CourseGradeId = courseGradeId;
+                _dataContext.Tutorial.Add(tutorial);
+                _dataContext.SaveChanges();
+            }
+            else
+            {
+                throw new InvalidOperationException("Unable to find course and grade");   
+            }
+        }
+
+        private int FindCourseId(string course, string grade)
+        {
+            int courseGradeId = 0;
+
+            int courseId = int.Parse(course);
+
+            var courseGrade = (from cg in _dataContext.CourseGrade where (cg.CourseId == courseId && cg.Grade == grade) select cg).ToList();
+            
+            if (courseGrade.Count > 0)
+            {
+                courseGradeId = courseGrade[0].Id;
+            }
+
+            return courseGradeId;
         }
     }
 }

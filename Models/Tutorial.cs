@@ -16,6 +16,6 @@ namespace Models
         [NotMapped]
         public string Subject { get; set; }
 
-        public byte[] Data { get; set; }
+        public string FullFilePath { get; set; }
     }
 }

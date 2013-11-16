@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 
 using EducationAnywhere.BusinessLayer;
@@ -35,7 +36,7 @@ namespace EducationAnywhere.Controllers
             _tutorialFacade = tutorialFacade;
         }
 
-        [HttpGet]
+        [System.Web.Mvc.HttpGet]
         public string Course()
         {
             var user = Session["UserData"] as User;
@@ -52,6 +53,21 @@ namespace EducationAnywhere.Controllers
             return json;
         }
 
+        [System.Web.Mvc.HttpPost]
+        public void Save([FromBody] Tutorial tutorial)
+        {
+            var user = Session["UserData"] as User;
+
+            if (user == null)
+            {
+                throw new HttpRequestException("You are not logged in");
+            }
+
+            var path = Path.Combine(Server.MapPath("~/uploads"), tutorial.FullFilePath);
+            tutorial.FullFilePath = path;
+            _tutorialFacade.SaveTutorial(tutorial);
+        }
+
         public ActionResult Index()
         {
             var user = Session["UserData"] as User;
@@ -66,7 +82,7 @@ namespace EducationAnywhere.Controllers
 
         //http://css.dzone.com/articles/angularjs-file-upload
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public ContentResult Upload(HttpPostedFileBase file)
         {
             var filename = Path.GetFileName(file.FileName);

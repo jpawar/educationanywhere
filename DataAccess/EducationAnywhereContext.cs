@@ -34,7 +34,7 @@ namespace DataAccess
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Tutorial> Tutorials { get; set; }
+        public DbSet<Tutorial> Tutorial { get; set; }
     }
 }
 

@@ -14,5 +14,7 @@ namespace DataAccess
         List<Course> GetAllCoursesByRole(User user);
 
         void CreateCourse(Course course);
+
+        void SaveTutorial(Tutorial tutorial);
     }
 }

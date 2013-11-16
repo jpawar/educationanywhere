@@ -29,9 +29,9 @@ namespace EducationAnywhere.BusinessLayer
         }
 
 
-        public void UploadTutorial(Tutorial tutorial)
-        {
-
+        public void SaveTutorial(Tutorial tutorial)
+        {            
+            _dataAccess.SaveTutorial(tutorial);
         }
 
         public void Dispose()
