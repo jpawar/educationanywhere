@@ -12,7 +12,9 @@ namespace EducationAnywhere
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery/jquery-1.8.2.min.js", "~/Scripts/jquery/jquery.cookie.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include("~/Scripts/bootstrap/bootstrap.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
+                    "~/Scripts/bootstrap/bootstrap.min.js"
+                    ));
 
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
                     "~/Scripts/angular/angular.min.js",
@@ -46,7 +48,8 @@ namespace EducationAnywhere
             bundles.Add(new ScriptBundle("~/Content/bootstrapcss").Include(
                 "~/Content/bootstrap/bootstrap.min.css",
                 "~/Content/bootstrap/jumbotron.css", 
-                "~/Content/bootstrap/bootstrap-responsive.min.css"));
+                "~/Content/bootstrap/bootstrap-responsive.min.css"
+                ));
         }
     }
 }

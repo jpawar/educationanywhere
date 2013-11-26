@@ -6,7 +6,7 @@ namespace EducationAnywhere.CommonTypes.Interface
 {
     public interface ITutorialFacade
     {
-        List<Course> GetAllCoursesByRole(User user);
+        //List<Tutorial> GetAllCoursesByRole(User user);
 
         void SaveTutorial(Tutorial tutorial);
     }

@@ -22,12 +22,7 @@ namespace EducationAnywhere.BusinessLayer
         {
             _dataAccess = dataAccess;
         }
-
-        public List<Course> GetAllCoursesByRole(User user)
-        {
-            return _dataAccess.GetAllCoursesByRole(user);
-        }
-
+        
 
         public void SaveTutorial(Tutorial tutorial)
         {            

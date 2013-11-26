@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 
 using Models;
 
@@ -35,8 +36,7 @@ namespace DataAccess
                 }
                 catch (Exception e)
                 {
-                    
-                    
+
                 }
 
                 return newUser;
@@ -74,8 +74,75 @@ namespace DataAccess
             return selectedUser;
         }
 
+        //public List<Tutorial> GetAllCoursesByRole(User user)
+        //{
+        //    var tutorialList = new List<Tutorial>();
 
-        public List<Course> GetAllCoursesByRole(User user)
+        //    var courseGradeIds = new List<int>();
+
+        //    var role = (Enums.Role)(Int32.Parse(user.Role));
+
+        //    if (role == Enums.Role.Student)
+        //    {
+        //        courseGradeIds = _dataContext.CourseGrade.Where(cg => cg.Grade == user.Grade).Select(cg => cg.Id).ToList();
+        //        tutorialList = _dataContext.Tutorial.Where(t => courseGradeIds.Contains(t.CourseGradeId)).ToList();
+        //    }
+        //    else
+        //    {
+        //        courseGradeIds = _dataContext.CourseGrade.Select(cg => cg.Id).ToList();
+        //        tutorialList = _dataContext.Tutorial.Where(t => courseGradeIds.Contains(t.CourseGradeId)).ToList();
+        //    }
+
+        //    return tutorialList;
+        //}
+
+        public IQueryable GetAllCoursesByRole(User user)
+        {
+            //var tutorialList = new List<Tutorial>();
+
+            IQueryable tutorials;
+
+            var role = (Enums.Role)(Int32.Parse(user.Role));
+
+            if (role == Enums.Role.Student)
+            {
+                //tutorials = from t in _dataContext.Tutorial
+                //    join cg in _dataContext.CourseGrade on t.CourseGradeId equals cg.Id
+                //    join c in _dataContext.Course on cg.CourseId equals c.Id
+                //    select t;
+                tutorials = from c in _dataContext.Course
+                            join cg in _dataContext.CourseGrade on c.Id equals cg.CourseId
+                            join t in _dataContext.Tutorial on cg.Id equals t.CourseGradeId
+                            where cg.Grade == user.Grade
+                            select new
+                            {
+                                Description = t.Description,
+                                FullFilePath = t.FullFilePath,
+                                Grade = cg.Grade,
+                                Subject = c.Subject
+                            };
+
+
+            }
+            else
+            {
+                tutorials = from c in _dataContext.Course
+                            join cg in _dataContext.CourseGrade on c.Id equals cg.CourseId
+                            join t in _dataContext.Tutorial on cg.Id equals t.CourseGradeId
+                            select new 
+                                {
+                                    Description = t.Description,
+                                    FullFilePath = t.FullFilePath,
+                                    Grade = cg.Grade,
+                                    Subject = c.Subject
+                                };
+            }
+
+            return tutorials;
+        }
+
+
+        public List<Course> GetAllCourses(User user)
         {
             var course = new List<Course>();
 
@@ -144,7 +211,7 @@ namespace DataAccess
 
         public void SaveTutorial(Tutorial tutorial)
         {
-            int courseGradeId  = FindCourseId(tutorial.Subject, tutorial.Grade);
+            int courseGradeId = FindCourseId(tutorial.Subject, tutorial.Grade);
 
             if (courseGradeId > 0)
             {
@@ -154,7 +221,7 @@ namespace DataAccess
             }
             else
             {
-                throw new InvalidOperationException("Unable to find course and grade");   
+                throw new InvalidOperationException("Unable to find course and grade");
             }
         }
 
@@ -165,7 +232,7 @@ namespace DataAccess
             int courseId = int.Parse(course);
 
             var courseGrade = (from cg in _dataContext.CourseGrade where (cg.CourseId == courseId && cg.Grade == grade) select cg).ToList();
-            
+
             if (courseGrade.Count > 0)
             {
                 courseGradeId = courseGrade[0].Id;

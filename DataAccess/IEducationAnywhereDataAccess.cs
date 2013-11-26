@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Models;
 
@@ -11,10 +12,12 @@ namespace DataAccess
 
         User SignIn(User userData);
 
-        List<Course> GetAllCoursesByRole(User user);
+        IQueryable GetAllCoursesByRole(User user);
 
         void CreateCourse(Course course);
 
         void SaveTutorial(Tutorial tutorial);
+
+        List<Course> GetAllCourses(User user);
     }
 }

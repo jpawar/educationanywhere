@@ -32,7 +32,11 @@ namespace EducationAnywhere.Controllers
             return View();
         }
 
-        private List<Course> GetAllCourses()
+        //
+        // GET: /Course/Details
+        
+        [System.Web.Mvc.HttpGet]
+        public string Details()
         {
             var user = Session["UserData"] as User;
 
@@ -41,17 +45,7 @@ namespace EducationAnywhere.Controllers
                 throw new HttpRequestException("You are not logged in");
             }
 
-            var course = _courseFacade.GetAllCoursesByRole(user);
-            return course;
-        }
-
-        //
-        // GET: /Course/Details
-        
-        [System.Web.Mvc.HttpGet]
-        public string Details()
-        {
-            var courses = GetAllCourses();
+            var courses = _courseFacade.GetAllCoursesByRole(user);
             var json = JsonConvert.SerializeObject(courses);
             return json;
             

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 using DataAccess;
 
@@ -24,7 +24,7 @@ namespace EducationAnywhere.BusinessLayer
             _dataAccess = dataAccess;
         }
 
-        public List<Course> GetAllCoursesByRole(User user)
+        public IQueryable GetAllCoursesByRole(User user)
         {
             return _dataAccess.GetAllCoursesByRole(user);
         }
@@ -53,6 +53,12 @@ namespace EducationAnywhere.BusinessLayer
                 }
             }
         }
-        
+
+
+
+        public List<Course> GetAllCourses(User user)
+        {
+            return _dataAccess.GetAllCourses(user);
+        }
     }
 }

@@ -1,10 +1,4 @@
-﻿@*@model IEnumerable<Models.Course>*@
-
-@{
-    ViewBag.Title = "Course";
-}
-
-<!-- http://stackoverflow.com/questions/11167628/trees-in-twitter-bootstrap -->
+﻿<!-- http://stackoverflow.com/questions/11167628/trees-in-twitter-bootstrap -->
 
 <div class="container">
     <div ng-controller="CourseCtrl" ng-init="getAllCourses()">
@@ -12,7 +6,6 @@
 
         <div class="nav navbar-right">
             <a data-toggle="modal" href="#createNewCourseModal" class="btn btn-primary {{isRoleTeacher}}">Create Course</a>
-            @*<a data-toggle="modal" href="#uploadTutorialModal" class="btn btn-warning {{isRoleTeacher}}">Upload Tutorial</a>*@
             <button ng-click="uploadTutorial()" class="btn btn-warning {{isRoleTeacher}}">Upload Tutorial</button>
         </div>
 
@@ -97,15 +90,34 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab1">
 
-                    <table class="table">
+                    @* <table class="table">
                         <tr>
                             <th>Subject</th>
                             <th class="{{isRoleTeacher}}">Grade</th>
                         </tr>
-                        
-                        <tr ng-repeat="courseDetail in CourseDescriptionList">                            
+
+                        <tr ng-repeat="courseDetail in CourseDescriptionList">
                             <td>{{courseDetail.Subject}}</td>
                             <td class="{{isRoleTeacher}}">{{courseDetail.Grade}}</td>
+                        </tr>
+                    </table>*@
+
+
+
+                    <table class="table" style="margin-top: 50px">
+                        <tr ng-repeat="courseDetail in CourseDescriptionList">
+                            <td style="border-top: 0">
+                                <div class="panel-primary panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">{{courseDetail.Subject}}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <a href="#" class="list-group-item"> <span class="badge">Grade {{courseDetail.Grade}}</span> {{courseDetail.Description}}</a>
+                                        <a href="#" class="list-group-item">{{courseDetail.FullFilePath}}</a>
+                                        
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -114,6 +126,7 @@
                 </div>*@
             </div>
         </div>
+
     </div>
 
 

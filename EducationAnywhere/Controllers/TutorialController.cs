@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -15,7 +13,6 @@ using EducationAnywhere.CommonTypes.Interface;
 using Models;
 
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace EducationAnywhere.Controllers
 {
@@ -46,7 +43,7 @@ namespace EducationAnywhere.Controllers
                 throw new HttpRequestException("You are not logged in");
             }
 
-            var courses = _courseFacade.GetAllCoursesByRole(user).Select(x => new { x.Id, x.Subject }).ToList();
+            var courses = _courseFacade.GetAllCourses(user).Select(x => new { x.Id, x.Subject }).ToList();
 
             var json = JsonConvert.SerializeObject(courses);
 
