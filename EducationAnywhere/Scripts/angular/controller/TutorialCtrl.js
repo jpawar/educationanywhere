@@ -20,13 +20,17 @@
             url: '/Tutorial/Save',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             data: tutorialUpload
-        }).success(redirectToCourse).error(showErrorMessage);
+        }).success(redirectToCourse).error(showErrorMessage);        
     };
 
     function redirectToCourse(data, status, headers, config) {        
         window.location.href = '/Course/Index';
     }
 
+    function showErrorMessage() {
+        
+    }
+    
     $scope.onFileSelect = function($files) {
         //$files: an array of files selected, each file has name, size, and type.
         for (var i = 0; i < $files.length; i++) {

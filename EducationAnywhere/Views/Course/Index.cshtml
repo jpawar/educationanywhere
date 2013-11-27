@@ -105,16 +105,15 @@
 
 
                     <table class="table" style="margin-top: 50px">
-                        <tr ng-repeat="courseDetail in CourseDescriptionList">
+                        <tr ng-repeat="courseDescription in CourseDescriptionList">
                             <td style="border-top: 0">
                                 <div class="panel-primary panel-default">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">{{courseDetail.Subject}}</h3>
-                                    </div>
-                                    <div class="panel-body">
+                                        <h3 class="panel-title">{{courseDescription.Course.Subject}}</h3>
+                                    </div>                                    
+                                    <div class="panel-body" ng-repeat="courseDetail in courseDescription.Tutorials">
                                         <a href="#" class="list-group-item"> <span class="badge">Grade {{courseDetail.Grade}}</span> {{courseDetail.Description}}</a>
-                                        <a href="#" class="list-group-item">{{courseDetail.FullFilePath}}</a>
-                                        
+                                        <a href="#" class="list-group-item">{{courseDetail.FullFilePath}}</a>                                        
                                     </div>
                                 </div>
                             </td>

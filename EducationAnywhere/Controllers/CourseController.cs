@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -22,6 +23,23 @@ namespace EducationAnywhere.Controllers
         public CourseController(ICourseFacade courseFacade)
         {
             _courseFacade = courseFacade;
+        }
+
+        [System.Web.Mvc.HttpGet]
+        public string GetAll()
+        {
+            var user = Session["UserData"] as User;
+
+            if (user == null)
+            {
+                throw new HttpRequestException("You are not logged in");
+            }
+
+            var courses = _courseFacade.GetAllCourses(user).Select(x => new { x.Id, x.Subject }).ToList();
+
+            var json = JsonConvert.SerializeObject(courses);
+
+            return json;
         }
 
         //

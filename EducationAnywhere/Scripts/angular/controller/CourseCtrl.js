@@ -16,9 +16,9 @@
 
     $scope.getAllCourses = function () {
 
-        $http.get('/Course/Details').then(fetchCourseSuccess);
-               
-        function fetchCourseSuccess(data, status, headers, config) {
+        $http.get('/Course/Details').then(fetchCourseDetailSuccess);
+        
+        function fetchCourseDetailSuccess(data, status, headers, config) {
             $scope.CourseDescriptionList = data.data;
         }
     };

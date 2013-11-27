@@ -10,7 +10,7 @@ namespace EducationAnywhere.CommonTypes.Interface
 {
     public interface ICourseFacade
     {
-        IQueryable GetAllCoursesByRole(User user);
+        List<CourseTutorial> GetAllCoursesByRole(User user);
 
         void CreateCourse(Course course);
 

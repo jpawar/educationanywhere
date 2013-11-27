@@ -23,9 +23,7 @@
 
     };
 
-    function redirectToCourse(data, status, headers, config) {        
-        //$.cookie('userId', data.Id, { expires: 7, path: '/' });
-        //$.cookie('userName', data.Name, { expires: 7, path: '/' });
+    function redirectToCourse(data, status, headers, config) {                
         data.Password = '';
         $.cookie('customer', JSON.stringify(data), { expires: 7, path: '/' });
         window.location.href = '/Course/Index';

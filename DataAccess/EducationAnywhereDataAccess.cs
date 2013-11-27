@@ -74,72 +74,104 @@ namespace DataAccess
             return selectedUser;
         }
 
-        //public List<Tutorial> GetAllCoursesByRole(User user)
-        //{
-        //    var tutorialList = new List<Tutorial>();
-
-        //    var courseGradeIds = new List<int>();
-
-        //    var role = (Enums.Role)(Int32.Parse(user.Role));
-
-        //    if (role == Enums.Role.Student)
-        //    {
-        //        courseGradeIds = _dataContext.CourseGrade.Where(cg => cg.Grade == user.Grade).Select(cg => cg.Id).ToList();
-        //        tutorialList = _dataContext.Tutorial.Where(t => courseGradeIds.Contains(t.CourseGradeId)).ToList();
-        //    }
-        //    else
-        //    {
-        //        courseGradeIds = _dataContext.CourseGrade.Select(cg => cg.Id).ToList();
-        //        tutorialList = _dataContext.Tutorial.Where(t => courseGradeIds.Contains(t.CourseGradeId)).ToList();
-        //    }
-
-        //    return tutorialList;
-        //}
-
-        public IQueryable GetAllCoursesByRole(User user)
+        public List<CourseTutorial> GetAllCoursesByRole(User user)
         {
-            //var tutorialList = new List<Tutorial>();
+            List<CourseTutorial> courseTutorialList = null;
 
-            IQueryable tutorials;
+            var courseGrade = new List<CourseGrade>();
 
             var role = (Enums.Role)(Int32.Parse(user.Role));
 
             if (role == Enums.Role.Student)
             {
-                //tutorials = from t in _dataContext.Tutorial
-                //    join cg in _dataContext.CourseGrade on t.CourseGradeId equals cg.Id
-                //    join c in _dataContext.Course on cg.CourseId equals c.Id
-                //    select t;
-                tutorials = from c in _dataContext.Course
-                            join cg in _dataContext.CourseGrade on c.Id equals cg.CourseId
-                            join t in _dataContext.Tutorial on cg.Id equals t.CourseGradeId
-                            where cg.Grade == user.Grade
-                            select new
-                            {
-                                Description = t.Description,
-                                FullFilePath = t.FullFilePath,
-                                Grade = cg.Grade,
-                                Subject = c.Subject
-                            };
+                courseGrade = _dataContext.CourseGrade.Where(cg => cg.Grade == user.Grade).OrderBy(cg => cg.CourseId).ToList();
 
-
+                courseTutorialList = PopulateCourseTutorials(courseGrade);
             }
             else
             {
-                tutorials = from c in _dataContext.Course
-                            join cg in _dataContext.CourseGrade on c.Id equals cg.CourseId
-                            join t in _dataContext.Tutorial on cg.Id equals t.CourseGradeId
-                            select new 
-                                {
-                                    Description = t.Description,
-                                    FullFilePath = t.FullFilePath,
-                                    Grade = cg.Grade,
-                                    Subject = c.Subject
-                                };
+                courseGrade = _dataContext.CourseGrade.OrderBy(cg => cg.CourseId).ToList();
+                courseTutorialList = PopulateCourseTutorials(courseGrade);
             }
 
-            return tutorials;
+            return courseTutorialList;
         }
+
+        private List<CourseTutorial> PopulateCourseTutorials(List<CourseGrade> courseGrade)
+        {
+            var courseTutorialList = new List<CourseTutorial>();
+
+            var currentSubject = string.Empty;
+            var courseTutorial = new CourseTutorial();
+
+            foreach (var cg in courseGrade)
+            {
+                var course = _dataContext.Course.Find(cg.CourseId);
+                if (currentSubject != course.Subject)
+                {
+                    courseTutorial = new CourseTutorial();
+                    courseTutorial.Course = course;                    
+                    courseTutorialList.Add(courseTutorial);
+                    currentSubject = course.Subject;
+                }
+
+                var tutorialList = _dataContext.Tutorial.Where(t => t.CourseGradeId == cg.Id).ToList();
+
+                if (tutorialList.Count > 0)
+                {
+                    var tut = tutorialList[0];
+                    tut.Grade = cg.Grade;
+                    courseTutorial.Tutorials.Add(tut);
+                }
+            }
+
+            return courseTutorialList;
+        }
+
+        //public IQueryable GetAllCoursesByRole(User user)
+        //{
+        //    //var tutorialList = new List<Tutorial>();
+
+        //    IQueryable tutorials;
+
+        //    var role = (Enums.Role)(Int32.Parse(user.Role));
+
+        //    if (role == Enums.Role.Student)
+        //    {
+        //        //tutorials = from t in _dataContext.Tutorial
+        //        //    join cg in _dataContext.CourseGrade on t.CourseGradeId equals cg.Id
+        //        //    join c in _dataContext.Course on cg.CourseId equals c.Id
+        //        //    select t;
+        //        tutorials = (from c in _dataContext.Course
+        //                    join cg in _dataContext.CourseGrade on c.Id equals cg.CourseId
+        //                    join t in _dataContext.Tutorial on cg.Id equals t.CourseGradeId
+        //                    where cg.Grade == user.Grade
+        //                    select new
+        //                    {
+        //                        Description = t.Description,
+        //                        FullFilePath = t.FullFilePath,
+        //                        Grade = cg.Grade,
+        //                        Subject = c.Subject
+        //                    }).OrderBy(t => t.Subject).GroupBy(t => t.Grade);
+
+
+        //    }
+        //    else
+        //    {
+        //        tutorials = (from c in _dataContext.Course
+        //                    join cg in _dataContext.CourseGrade on c.Id equals cg.CourseId
+        //                    join t in _dataContext.Tutorial on cg.Id equals t.CourseGradeId
+        //                    select new 
+        //                        {
+        //                            Description = t.Description,
+        //                            FullFilePath = t.FullFilePath,
+        //                            Grade = cg.Grade,
+        //                            Subject = c.Subject
+        //                        }).OrderBy(t => t.Subject).GroupBy(t => t.Grade);
+        //    }
+
+        //    return tutorials;
+        //}
 
 
         public List<Course> GetAllCourses(User user)
@@ -236,6 +268,13 @@ namespace DataAccess
             if (courseGrade.Count > 0)
             {
                 courseGradeId = courseGrade[0].Id;
+            }
+            else
+            {
+                var cg = new CourseGrade() { CourseId = int.Parse(course), Grade = grade };
+                _dataContext.CourseGrade.Add(cg);
+                _dataContext.SaveChanges();
+                courseGradeId = cg.Id;
             }
 
             return courseGradeId;

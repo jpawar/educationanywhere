@@ -12,7 +12,7 @@ namespace DataAccess
 
         User SignIn(User userData);
 
-        IQueryable GetAllCoursesByRole(User user);
+        List<CourseTutorial> GetAllCoursesByRole(User user);
 
         void CreateCourse(Course course);
 

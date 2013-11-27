@@ -24,7 +24,7 @@ namespace EducationAnywhere.BusinessLayer
             _dataAccess = dataAccess;
         }
 
-        public IQueryable GetAllCoursesByRole(User user)
+        public List<CourseTutorial> GetAllCoursesByRole(User user)
         {
             return _dataAccess.GetAllCoursesByRole(user);
         }
