@@ -112,6 +112,7 @@ namespace DataAccess
                     courseTutorial = new CourseTutorial();
                     courseTutorial.Course = course;                    
                     courseTutorialList.Add(courseTutorial);
+                    
                     currentSubject = course.Subject;
                 }
 
@@ -119,13 +120,30 @@ namespace DataAccess
 
                 if (tutorialList.Count > 0)
                 {
-                    var tut = tutorialList[0];
-                    tut.Grade = cg.Grade;
-                    courseTutorial.Tutorials.Add(tut);
+                    foreach (var tut in tutorialList)
+                    {
+                        tut.Grade = cg.Grade;
+                        tut.FullFilePath = "http://localhost:58879" + tut.FullFilePath;
+                        courseTutorial.Tutorials.Add(tut);
+                    }
                 }
             }
 
-            return courseTutorialList;
+            return SetTheSortedOrder(courseTutorialList);
+            
+        }
+
+        private List<CourseTutorial> SetTheSortedOrder(List<CourseTutorial> courseTutorialList)
+        {
+            List<CourseTutorial> sortedCourseTutorialList = courseTutorialList.OrderBy(x => x.Course.Subject).ToList();
+
+            foreach (var courseTutorial in sortedCourseTutorialList)
+            {
+                var tut = courseTutorial.Tutorials.OrderBy(t => t.Grade).ToList();
+                courseTutorial.Tutorials = tut;
+            }
+
+            return sortedCourseTutorialList;
         }
 
         //public IQueryable GetAllCoursesByRole(User user)

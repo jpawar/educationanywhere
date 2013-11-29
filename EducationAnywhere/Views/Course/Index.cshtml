@@ -2,7 +2,7 @@
 
 <div class="container">
     <div ng-controller="CourseCtrl" ng-init="getAllCourses()">
-        <h2>Browse Course</h2>
+        <h2>Course Tutorials</h2>
 
         <div class="nav navbar-right">
             <a data-toggle="modal" href="#createNewCourseModal" class="btn btn-primary {{isRoleTeacher}}">Create Course</a>
@@ -102,18 +102,31 @@
                         </tr>
                     </table>*@
 
-
-
+                    @*<video id="video" controls="" preload="none" poster="http://media.w3.org/2010/05/sintel/poster.png">
+                        <source id="mp4" src="http://media.w3.org/2010/05/sintel/trailer.mp4" type="video/mp4">
+                        <source id="webm" src="http://media.w3.org/2010/05/sintel/trailer.webm" type="video/webm">
+                        <source id="ogv" src="http://media.w3.org/2010/05/sintel/trailer.ogv" type="video/ogg">
+                        <p>Your user agent does not support the HTML5 Video element.</p>
+                    </video>*@
+                    @*<object id="mediaplayer" classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6" codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#version=5,1,52,701" standby="loading microsoft windows media player components..." type="application/x-oleobject" width="320" height="310">
+                        <param name="filename" value="~/uploads/sl.wmv">
+                        <param name="animationatstart" value="true">
+                        <param name="transparentatstart" value="true">
+                        <param name="autostart" value="true">
+                        <param name="showcontrols" value="true">
+                        <param name="ShowStatusBar" value="true">
+                        <param name="windowlessvideo" value="true">
+                        <embed src="~/uploads/sl.wmv" autostart="true" showcontrols="true" showstatusbar="1" bgcolor="white" width="320" height="310">
+                    </object>*@
                     <table class="table" style="margin-top: 50px">
                         <tr ng-repeat="courseDescription in CourseDescriptionList">
                             <td style="border-top: 0">
                                 <div class="panel-primary panel-default">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">{{courseDescription.Course.Subject}}</h3>
-                                    </div>                                    
+                                        <h3 class="panel-title"><strong>{{courseDescription.Course.Subject}}</strong></h3>
+                                    </div>
                                     <div class="panel-body" ng-repeat="courseDetail in courseDescription.Tutorials">
-                                        <a href="#" class="list-group-item"> <span class="badge">Grade {{courseDetail.Grade}}</span> {{courseDetail.Description}}</a>
-                                        <a href="#" class="list-group-item">{{courseDetail.FullFilePath}}</a>                                        
+                                        <a href="{{courseDetail.FullFilePath}}" class="list-group-item" target="_blank"><span class="badge">Grade {{courseDetail.Grade}}</span> {{courseDetail.Description}}</a>                                        
                                     </div>
                                 </div>
                             </td>

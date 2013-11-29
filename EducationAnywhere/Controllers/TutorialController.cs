@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace EducationAnywhere.Controllers
 {
-    public class TutorialController : Controller
+    public class TutorialController : BaseController
     {
         private ICourseFacade _courseFacade;
         private ITutorialFacade _tutorialFacade;
@@ -36,12 +36,7 @@ namespace EducationAnywhere.Controllers
         [System.Web.Mvc.HttpGet]
         public string Course()
         {
-            var user = Session["UserData"] as User;
-
-            if (user == null)
-            {
-                throw new HttpRequestException("You are not logged in");
-            }
+            var user = IsUserInSession();
 
             var courses = _courseFacade.GetAllCourses(user).Select(x => new { x.Id, x.Subject }).ToList();
 
@@ -53,27 +48,17 @@ namespace EducationAnywhere.Controllers
         [System.Web.Mvc.HttpPost]
         public void Save([FromBody] Tutorial tutorial)
         {
-            var user = Session["UserData"] as User;
+            IsUserInSession();
+            //var path = Path.Combine(Server.MapPath("~/uploads"), tutorial.FullFilePath);
 
-            if (user == null)
-            {
-                throw new HttpRequestException("You are not logged in");
-            }
-
-            var path = Path.Combine(Server.MapPath("~/uploads"), tutorial.FullFilePath);
+            var path = "/uploads/" + tutorial.FullFilePath;
             tutorial.FullFilePath = path;
             _tutorialFacade.SaveTutorial(tutorial);
         }
 
         public ActionResult Index()
         {
-            var user = Session["UserData"] as User;
-
-            if (user == null)
-            {
-                throw new HttpRequestException("You are not logged in");
-            }
-
+            IsUserInSession();
             return View();
         }
 
@@ -82,6 +67,8 @@ namespace EducationAnywhere.Controllers
         [System.Web.Mvc.HttpPost]
         public ContentResult Upload(HttpPostedFileBase file)
         {
+            IsUserInSession();
+
             var filename = Path.GetFileName(file.FileName);
             var path = Path.Combine(Server.MapPath("~/uploads"), filename);
             file.SaveAs(path);
@@ -98,6 +85,7 @@ namespace EducationAnywhere.Controllers
 
         public List<Tutorial> GetCourseGrade(int courseGradeId)
         {
+            IsUserInSession();
             return new List<Tutorial>();
         }
     }

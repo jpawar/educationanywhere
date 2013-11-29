@@ -10,8 +10,8 @@ using Models;
 using Newtonsoft.Json;
 
 namespace EducationAnywhere.Controllers
-{
-    public class CourseController : Controller
+{    
+    public class CourseController : BaseController
     {
         private ICourseFacade _courseFacade;
 
@@ -28,15 +28,9 @@ namespace EducationAnywhere.Controllers
         [System.Web.Mvc.HttpGet]
         public string GetAll()
         {
-            var user = Session["UserData"] as User;
-
-            if (user == null)
-            {
-                throw new HttpRequestException("You are not logged in");
-            }
+            var user = IsUserInSession();
 
             var courses = _courseFacade.GetAllCourses(user).Select(x => new { x.Id, x.Subject }).ToList();
-
             var json = JsonConvert.SerializeObject(courses);
 
             return json;
@@ -46,7 +40,8 @@ namespace EducationAnywhere.Controllers
         // GET: /Course
 
         public ActionResult Index()
-        {            
+        {
+            IsUserInSession();
             return View();
         }
 
@@ -56,17 +51,11 @@ namespace EducationAnywhere.Controllers
         [System.Web.Mvc.HttpGet]
         public string Details()
         {
-            var user = Session["UserData"] as User;
-
-            if (user == null)
-            {
-                throw new HttpRequestException("You are not logged in");
-            }
+            var user = IsUserInSession();
 
             var courses = _courseFacade.GetAllCoursesByRole(user);
             var json = JsonConvert.SerializeObject(courses);
             return json;
-            
         }
         
 
@@ -75,6 +64,7 @@ namespace EducationAnywhere.Controllers
 
         public ActionResult Create()
         {
+            IsUserInSession();
             return View();
         }
 
@@ -84,6 +74,8 @@ namespace EducationAnywhere.Controllers
         [System.Web.Mvc.HttpPost]        
         public ActionResult Create([FromBody] Course course)
         {
+            IsUserInSession();
+
             if (ModelState.IsValid)
             {
                 _courseFacade.CreateCourse(course);
@@ -91,66 +83,6 @@ namespace EducationAnywhere.Controllers
             }
 
             return View(course);
-        }
-
-        
-
-        //
-        // GET: /Course/Upload/5
-        /*
-        
-        public ActionResult Upload(int id = 0)
-        {
-            Course course = db.Course.Find(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
-            return View(course);
-        }
-
-        //
-        // POST: /Course/Edit/5
-
-        [System.Web.Mvc.HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Course course)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(course).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(course);
-        }
-
-        //
-        // GET: /Course/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            Course course = db.Course.Find(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
-            return View(course);
-        }
-
-        //
-        // POST: /Course/Delete/5
-
-        [System.Web.Mvc.HttpPost, System.Web.Mvc.ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Course course = db.Course.Find(id);
-            db.Course.Remove(course);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        */
-        
+        }        
     }
 }

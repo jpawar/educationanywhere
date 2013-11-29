@@ -56,7 +56,8 @@ namespace EducationAnywhere.Controllers
 
         [System.Web.Mvc.HttpDelete]
         public string SignOut()
-        {            
+        {
+            Session["UserData"] = null;
             Session.Remove("UserData");
             return "";
         } 
