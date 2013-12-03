@@ -44,6 +44,11 @@
         $scope.userNameVisible = '';
         $scope.visibility = 'hide';
         $scope.userName = 'Hello ' + userData.Name;
+        $scope.showTutorial = 'hide';
+        
+        if (userData.Role == 1) {
+            $scope.showTutorial = '';
+        }
         
         userData.Password = '';
         $.cookie('customer', JSON.stringify(userData), { expires: 7, path: '/' });

@@ -27,14 +27,21 @@
                     </div>
                     <button type="submit" class="btn btn-success {{visibility}}">Sign in</button>
                 </form>
-                    <span class="navbar-brand">{{userName}}</span>
+                <span class="navbar-brand">{{userName}}</span>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">About</a></li>                                        
-                    <li><a href="#">Contact</a></li>                                        
-                    <li><button style="margin:7px" type="button" class="btn btn-success {{userNameVisible}}" ng-click="signOutUser()">Sign Out</button></li>
-                    <li class="{{visibility}}"><a href="~/Registration/Register">Create Account</a></li>                    
-                </ul>                
+                    <li class="dropdown {{userNameVisible}}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Go to <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="~/Home/Index">Home</a></li>
+                            <li><a href="~/Course/Index">Course</a></li>
+                            <li class="{{showTutorial}}"><a href="~/Tutorial/Index">Tutorial</a></li>                            
+                        </ul>
+                    </li>
+                    <li>
+                        <button style="margin: 7px" type="button" class="btn btn-success {{userNameVisible}}" ng-click="signOutUser()">Sign Out</button></li>
+                    <li class="{{visibility}}"><a href="~/Registration/Register">Create Account</a></li>
+                </ul>
             </div>
             <!--/.navbar-collapse -->
         </div>
