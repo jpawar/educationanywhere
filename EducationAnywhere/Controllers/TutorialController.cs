@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web;
@@ -33,10 +35,11 @@ namespace EducationAnywhere.Controllers
             _tutorialFacade = tutorialFacade;
         }
 
-        [System.Web.Mvc.HttpGet]
+        [System.Web.Mvc.HttpGet]        
         public string Course()
         {
             var user = IsUserInSession();
+            IsAuthorized();
 
             var courses = _courseFacade.GetAllCourses(user).Select(x => new { x.Id, x.Subject }).ToList();
 
@@ -49,6 +52,7 @@ namespace EducationAnywhere.Controllers
         public void Save([FromBody] Tutorial tutorial)
         {
             IsUserInSession();
+            IsAuthorized();
             //var path = Path.Combine(Server.MapPath("~/uploads"), tutorial.FullFilePath);
 
             var path = "/uploads/" + tutorial.FullFilePath;
@@ -59,7 +63,13 @@ namespace EducationAnywhere.Controllers
         public ActionResult Index()
         {
             IsUserInSession();
-            return View();
+
+            if (IsAuthorized())
+            {
+                return View();                
+            }
+
+            return View("Error");
         }
 
         //http://css.dzone.com/articles/angularjs-file-upload
@@ -68,6 +78,7 @@ namespace EducationAnywhere.Controllers
         public ContentResult Upload(HttpPostedFileBase file)
         {
             IsUserInSession();
+            IsAuthorized();
 
             var filename = Path.GetFileName(file.FileName);
             var path = Path.Combine(Server.MapPath("~/uploads"), filename);
@@ -86,7 +97,8 @@ namespace EducationAnywhere.Controllers
         public List<Tutorial> GetCourseGrade(int courseGradeId)
         {
             IsUserInSession();
+            IsAuthorized();
             return new List<Tutorial>();
-        }
+        }       
     }
 }

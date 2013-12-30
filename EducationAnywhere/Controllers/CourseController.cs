@@ -28,8 +28,10 @@ namespace EducationAnywhere.Controllers
         [System.Web.Mvc.HttpGet]
         public string GetAll()
         {
-            var user = IsUserInSession();
+            IsUserInSession();
+            IsAuthorized();
 
+            var user = Session["UserData"] as User;
             var courses = _courseFacade.GetAllCourses(user).Select(x => new { x.Id, x.Subject }).ToList();
             var json = JsonConvert.SerializeObject(courses);
 
@@ -65,6 +67,11 @@ namespace EducationAnywhere.Controllers
         public ActionResult Create()
         {
             IsUserInSession();
+            if (!IsAuthorized())
+            {
+                return View("Error");
+            }
+
             return View();
         }
 
@@ -75,6 +82,11 @@ namespace EducationAnywhere.Controllers
         public ActionResult Create([FromBody] Course course)
         {
             IsUserInSession();
+
+            if (!IsAuthorized())
+            {
+                return View("Error");
+            }
 
             if (ModelState.IsValid)
             {

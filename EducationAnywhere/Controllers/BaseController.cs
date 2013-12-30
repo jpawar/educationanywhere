@@ -17,10 +17,30 @@ namespace EducationAnywhere.Controllers
 
             if (user == null)
             {
-                throw new HttpRequestException("You are not logged in");
+                var rd = Redirect("~/Error/Index.cshtml");
+                //throw new HttpRequestException("You are not logged in");                
             }
 
             return user;
+        }
+
+        protected bool IsAuthorized()
+        {
+            bool isOk = true;
+
+            var user = Session["UserData"] as User;
+
+            if (user != null)
+            {
+                var role = (Enums.Role)Enum.Parse(typeof(Enums.Role), user.Role);
+
+                if ( role != Enums.Role.Teacher)
+                {                    
+                    isOk = false;                    
+                }
+            }
+
+            return isOk;
         }
     }
 }
